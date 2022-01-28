@@ -37,8 +37,10 @@ class MagnetsScreenView extends ScreenView {
     // Add the control panel for magnets, positioned at the top-right of the screen.
     this.addChild( new MagnetsControlPanel( model, {
       right: this.layoutBounds.right - ExampleSimConstants.SCREEN_VIEW_X_MARGIN,
-      top: this.layoutBounds.top + ExampleSimConstants.SCREEN_VIEW_Y_MARGIN
-    } ) );
+      top: this.layoutBounds.top + ExampleSimConstants.SCREEN_VIEW_Y_MARGIN,
+      xBound: this.layoutBounds.width,
+      yBound: this.layoutBounds.height
+    } ));
 
     // Add the 'Reset All' button. This resets the simulation to its initial state. By PhET convention, this
     // button is positioned at the lower-right of the screen.

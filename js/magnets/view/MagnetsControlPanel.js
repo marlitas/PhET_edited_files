@@ -8,6 +8,7 @@
  * @author Steele Dalton (PhET Interactive Simulations)
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
@@ -35,6 +36,7 @@ class MagnetsControlPanel extends Panel {
       lineWidth: 3
     }, options );
 
+    console.log(options)
     // 'Magnet Controls' title
     const magnetControlsTitleNode = new Text( exampleSimStrings.magnetControls, {
       font: new PhetFont( {
@@ -56,13 +58,28 @@ class MagnetsControlPanel extends Panel {
       }
     } );
 
+    //'Move Magnet' button
+    const moveMagnetButton = new RectangularPushButton( {
+      content: new Text( 'Move Magnet', {
+        font: new PhetFont( 16 )
+      } ),
+      baseColor: 'yellow',
+      xMargin: 10,
+      listener: () => {
+        const x = Math.random() * options.xBound;
+        const y = Math.random() * options.yBound;
+        model.barMagnet.positionProperty.set({x: x, y: y})
+      }
+    } );
+
     // The contents of the control panel
     const content = new VBox( {
       align: 'center',
       spacing: 10,
       children: [
         magnetControlsTitleNode,
-        flipPolarityButton
+        flipPolarityButton,
+        moveMagnetButton
       ]
     } );
 
