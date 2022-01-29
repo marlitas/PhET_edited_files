@@ -35,7 +35,6 @@ class MagnetsScreenView extends ScreenView {
     // Add a magnet. The model determines its position.
     this.addChild( new BarMagnetNode( model.barMagnet, this.modelViewTransform ) );
 
-
     // Add the control panel for magnets, positioned at the top-right of the screen.
     const controlPanel = this.addChild( new MagnetsControlPanel( model, {
       right: this.layoutBounds.right - ExampleSimConstants.SCREEN_VIEW_X_MARGIN,
@@ -63,8 +62,6 @@ class MagnetsScreenView extends ScreenView {
       right: this.layoutBounds.right - ExampleSimConstants.SCREEN_VIEW_X_MARGIN,
       bottom: this.layoutBounds.bottom - ExampleSimConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
-
-    
   }
 
   addMagnetListener(model){
