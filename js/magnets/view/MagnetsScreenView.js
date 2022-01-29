@@ -30,10 +30,10 @@ class MagnetsScreenView extends ScreenView {
 
     // transform between model coordinates and view coordinates
     const center = new Vector2( this.layoutBounds.width / 2, this.layoutBounds.height / 2 );
-    const modelViewTransform = ModelViewTransform2.createOffsetScaleMapping( center, 1 );
+    this.modelViewTransform = ModelViewTransform2.createOffsetScaleMapping( center, 1 );
 
     // Add a magnet. The model determines its position.
-    this.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform ) );
+    this.addChild( new BarMagnetNode( model.barMagnet, this.modelViewTransform ) );
 
 
     // Add the control panel for magnets, positioned at the top-right of the screen.
@@ -53,6 +53,7 @@ class MagnetsScreenView extends ScreenView {
         // To demonstrate, press the Reset All button while dragging the magent.
         this.interruptSubtreeInput();
         
+        //Grab amount of added magnets to remove
         const addedMagnetCount = model.addedMagnets.length
         this.children.slice(-addedMagnetCount).forEach((magnet) => this.removeChild( magnet ))
 
@@ -67,7 +68,7 @@ class MagnetsScreenView extends ScreenView {
   }
 
   addMagnetListener(model){
-    this.addChild( new BarMagnetNode( model.addedMagnets.at(-1), ModelViewTransform2.createOffsetScaleMapping( new Vector2( this.layoutBounds.width / 2, this.layoutBounds.height / 2 ), 1 ) ));
+    this.addChild( new BarMagnetNode( model.addedMagnets.at(-1), this.modelViewTransform ));
   }
 }
 

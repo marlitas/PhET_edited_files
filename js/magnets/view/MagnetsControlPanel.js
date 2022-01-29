@@ -95,6 +95,7 @@ class MagnetsControlPanel extends Panel {
 
     super( content, options );
     
+    //adds listener that affects parent view
     addMagnetButton.addListener(() => {
       const x = (Math.random() * options.xBound ) - options.xBound/2;
       const y = (Math.random() * options.yBound ) - options.yBound/2;
