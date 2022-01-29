@@ -8,6 +8,7 @@
  * @author Steele Dalton (PhET Interactive Simulations)
  */
 
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -35,8 +36,7 @@ class MagnetsControlPanel extends Panel {
       stroke: 'orange',
       lineWidth: 3
     }, options );
-
-    console.log(options)
+    
     // 'Magnet Controls' title
     const magnetControlsTitleNode = new Text( exampleSimStrings.magnetControls, {
       font: new PhetFont( {
@@ -72,6 +72,15 @@ class MagnetsControlPanel extends Panel {
       }
     } );
 
+    //'Add Magnet' button
+    const addMagnetButton = new RectangularPushButton( {
+      content: new Text( 'Add Magnet', {
+        font: new PhetFont( 16 )
+        }),
+        baseColor: 'yellow',
+        xMargin: 10
+    });
+
     // The contents of the control panel
     const content = new VBox( {
       align: 'center',
@@ -79,11 +88,19 @@ class MagnetsControlPanel extends Panel {
       children: [
         magnetControlsTitleNode,
         flipPolarityButton,
-        moveMagnetButton
+        moveMagnetButton,
+        addMagnetButton
       ]
     } );
 
     super( content, options );
+    
+    addMagnetButton.addListener(() => {
+      const x = (Math.random() * options.xBound ) - options.xBound/2;
+      const y = (Math.random() * options.yBound ) - options.yBound/2;
+      model.addMagnet(x, y)
+      this.parent.addMagnetListener(model)
+    })
   }
 }
 

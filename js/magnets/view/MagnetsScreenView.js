@@ -13,6 +13,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import { FireListener } from '../../../../scenery/js/imports.js';
 import ExampleSimConstants from '../../common/ExampleSimConstants.js';
 import exampleSim from '../../exampleSim.js';
 import BarMagnetNode from './BarMagnetNode.js';
@@ -34,13 +35,18 @@ class MagnetsScreenView extends ScreenView {
     // Add a magnet. The model determines its position.
     this.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform ) );
 
+    // Iterate through all manually added magnets
+    model.addedMagnets.forEach((magnet) => {
+      this.addChild( new BarMagnetNode( magnet, modelViewTransform ))
+    });
+
     // Add the control panel for magnets, positioned at the top-right of the screen.
-    this.addChild( new MagnetsControlPanel( model, {
+    const controlPanel = this.addChild( new MagnetsControlPanel( model, {
       right: this.layoutBounds.right - ExampleSimConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + ExampleSimConstants.SCREEN_VIEW_Y_MARGIN,
       xBound: this.layoutBounds.width,
-      yBound: this.layoutBounds.height
-    } ));
+      yBound: this.layoutBounds.height,
+    }));
 
     // Add the 'Reset All' button. This resets the simulation to its initial state. By PhET convention, this
     // button is positioned at the lower-right of the screen.
@@ -57,6 +63,21 @@ class MagnetsScreenView extends ScreenView {
       right: this.layoutBounds.right - ExampleSimConstants.SCREEN_VIEW_X_MARGIN,
       bottom: this.layoutBounds.bottom - ExampleSimConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
+
+    const addMagnetListener = new FireListener({
+      fire: model.addedMagnets.forEach((magnet) => {
+        this.addChild( new BarMagnetNode( magnet, modelViewTransform ));
+        console.log(magnet)
+      })
+    })
+    console.log(controlPanel)
+    
+  }
+
+  addMagnetListener(model){
+    model.addedMagnets.forEach((magnet) => {
+      this.addChild( new BarMagnetNode( magnet, ModelViewTransform2.createOffsetScaleMapping( new Vector2( this.layoutBounds.width / 2, this.layoutBounds.height / 2 ), 1 ) ))
+    });
   }
 }
 

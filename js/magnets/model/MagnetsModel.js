@@ -20,6 +20,8 @@ class MagnetsModel {
 
     // @public {BarMagnet} initial bar magnet model element
     this.barMagnet = new BarMagnet( new Dimension2( 250, 50 ), new Vector2( 0, 0 ), 0 );
+
+    this.addedMagnets = []
   }
 
   /**
@@ -29,6 +31,12 @@ class MagnetsModel {
    */
   reset() {
     this.barMagnet.reset();
+  }
+
+  // adds a new magnet at provided location and stores in addedMagnets array.
+  addMagnet(x, y) {
+    const magnet = new BarMagnet( new Dimension2( 250, 50 ), new Vector2(x, y), 0);
+    this.addedMagnets.push(magnet)
   }
 }
 
