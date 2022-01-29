@@ -35,10 +35,6 @@ class MagnetsScreenView extends ScreenView {
     // Add a magnet. The model determines its position.
     this.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform ) );
 
-    // Iterate through all manually added magnets
-    model.addedMagnets.forEach((magnet) => {
-      this.addChild( new BarMagnetNode( magnet, modelViewTransform ))
-    });
 
     // Add the control panel for magnets, positioned at the top-right of the screen.
     const controlPanel = this.addChild( new MagnetsControlPanel( model, {
@@ -56,6 +52,9 @@ class MagnetsScreenView extends ScreenView {
         // Interrupt any other user interactions that may be in progress, needed for multi-touch.
         // To demonstrate, press the Reset All button while dragging the magent.
         this.interruptSubtreeInput();
+        
+        const addedMagnetCount = model.addedMagnets.length
+        this.children.slice(-addedMagnetCount).forEach((magnet) => this.removeChild( magnet ))
 
         // Reset the model
         model.reset();
@@ -64,20 +63,11 @@ class MagnetsScreenView extends ScreenView {
       bottom: this.layoutBounds.bottom - ExampleSimConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
 
-    const addMagnetListener = new FireListener({
-      fire: model.addedMagnets.forEach((magnet) => {
-        this.addChild( new BarMagnetNode( magnet, modelViewTransform ));
-        console.log(magnet)
-      })
-    })
-    console.log(controlPanel)
     
   }
 
   addMagnetListener(model){
-    model.addedMagnets.forEach((magnet) => {
-      this.addChild( new BarMagnetNode( magnet, ModelViewTransform2.createOffsetScaleMapping( new Vector2( this.layoutBounds.width / 2, this.layoutBounds.height / 2 ), 1 ) ))
-    });
+    this.addChild( new BarMagnetNode( model.addedMagnets.at(-1), ModelViewTransform2.createOffsetScaleMapping( new Vector2( this.layoutBounds.width / 2, this.layoutBounds.height / 2 ), 1 ) ));
   }
 }
 

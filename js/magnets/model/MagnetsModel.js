@@ -31,6 +31,7 @@ class MagnetsModel {
    */
   reset() {
     this.barMagnet.reset();
+    this.addedMagnets = []
   }
 
   // adds a new magnet at provided location and stores in addedMagnets array.
