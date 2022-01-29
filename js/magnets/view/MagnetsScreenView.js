@@ -36,12 +36,12 @@ class MagnetsScreenView extends ScreenView {
     this.addChild( new BarMagnetNode( model.barMagnet, this.modelViewTransform ) );
 
     // Add the control panel for magnets, positioned at the top-right of the screen.
-    const controlPanel = this.addChild( new MagnetsControlPanel( model, {
+    this.addChild( new MagnetsControlPanel( model, {
       right: this.layoutBounds.right - ExampleSimConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + ExampleSimConstants.SCREEN_VIEW_Y_MARGIN,
       xBound: this.layoutBounds.width,
-      yBound: this.layoutBounds.height,
-    }));
+      yBound: this.layoutBounds.height
+    } ) );
 
     // Add the 'Reset All' button. This resets the simulation to its initial state. By PhET convention, this
     // button is positioned at the lower-right of the screen.
@@ -52,9 +52,9 @@ class MagnetsScreenView extends ScreenView {
         // To demonstrate, press the Reset All button while dragging the magent.
         this.interruptSubtreeInput();
         
-        //Grab amount of added magnets to remove
-        const addedMagnetCount = model.addedMagnets.length
-        this.children.slice(-addedMagnetCount).forEach((magnet) => this.removeChild( magnet ))
+        // Grab amount of added magnets to remove
+        const addedMagnetCount = model.addedMagnets.length;
+        this.children.slice( -addedMagnetCount ).forEach( magnet => this.removeChild( magnet ) );
 
         // Reset the model
         model.reset();
@@ -64,8 +64,12 @@ class MagnetsScreenView extends ScreenView {
     } ) );
   }
 
-  addMagnetListener(model){
-    this.addChild( new BarMagnetNode( model.addedMagnets.at(-1), this.modelViewTransform ));
+  /**
+   * Adds new magnet to screen view.
+   * @public
+   */
+  addMagnetListener( model ) {
+    this.addChild( new BarMagnetNode( model.addedMagnets.at( -1 ), this.modelViewTransform ) );
   }
 }
 

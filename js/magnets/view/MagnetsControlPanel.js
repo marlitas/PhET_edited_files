@@ -58,7 +58,7 @@ class MagnetsControlPanel extends Panel {
       }
     } );
 
-    //'Move Magnet' button
+    // 'Move Magnet' button
     const moveMagnetButton = new RectangularPushButton( {
       content: new Text( 'Move Magnet', {
         font: new PhetFont( 16 )
@@ -66,20 +66,20 @@ class MagnetsControlPanel extends Panel {
       baseColor: 'yellow',
       xMargin: 10,
       listener: () => {
-        const x = (Math.random() * options.xBound ) - options.xBound/2;
-        const y = (Math.random() * options.yBound ) - options.yBound/2;
-        model.barMagnet.positionProperty.set({x: x, y: y})
+        const x = ( Math.random() * options.xBound ) - options.xBound / 2;
+        const y = ( Math.random() * options.yBound ) - options.yBound / 2;
+        model.barMagnet.positionProperty.set( new Vector2( x, y ) );
       }
     } );
 
-    //'Add Magnet' button
+    // 'Add Magnet' button
     const addMagnetButton = new RectangularPushButton( {
       content: new Text( 'Add Magnet', {
         font: new PhetFont( 16 )
-        }),
+        } ),
         baseColor: 'yellow',
         xMargin: 10
-    });
+    } );
 
     // The contents of the control panel
     const content = new VBox( {
@@ -95,13 +95,13 @@ class MagnetsControlPanel extends Panel {
 
     super( content, options );
     
-    //adds listener that affects parent view
-    addMagnetButton.addListener(() => {
-      const x = (Math.random() * options.xBound ) - options.xBound/2;
-      const y = (Math.random() * options.yBound ) - options.yBound/2;
-      model.addMagnet(x, y)
-      this.parent.addMagnetListener(model)
-    })
+    // adds listener that affects parent view
+    addMagnetButton.addListener( () => {
+      const x = ( Math.random() * options.xBound ) - options.xBound / 2;
+      const y = ( Math.random() * options.yBound ) - options.yBound / 2;
+      model.addMagnet( x, y );
+      this.parent.addMagnetListener( model );
+    } );
   }
 }
 
